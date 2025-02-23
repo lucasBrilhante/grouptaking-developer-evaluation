@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities
         /// Gets the product's category
         /// Must be one of the predetermined categories and cannot be zero.
         /// </summary>
-        public string Category { get; set; }
+        public ProductCategory Category { get; set; }
         /// <summary>
         /// Gets the product's image url.
         /// Must not be null or empty.
