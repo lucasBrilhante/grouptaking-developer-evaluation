@@ -1,6 +1,7 @@
 ﻿using Ambev.DeveloperEvaluation.Common.Security;
 using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,7 +54,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The product if found, null otherwise</returns>
         public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Products.FirstOrDefaultAsync(o => o.Id == id, cancellationToken);
         }
 
         /// <summary>
