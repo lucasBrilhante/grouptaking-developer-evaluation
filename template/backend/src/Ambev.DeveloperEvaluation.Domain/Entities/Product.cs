@@ -18,7 +18,7 @@ public class Product: BaseEntity
     /// Gets the product's selling price.
     /// Must not be zero or negative.
     /// </summary>
-    public float Price { get; set; }
+    public double Price { get; set; }
     /// <summary>
     /// Gets the product's description, with more information.
     /// Must not be null or empty.
