@@ -1,4 +1,5 @@
-﻿using Ambev.DeveloperEvaluation.Domain.Entities;
+﻿using Ambev.DeveloperEvaluation.Common.Security;
+using Ambev.DeveloperEvaluation.Domain.Entities;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,11 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <param name="product">The product to create</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The created product</returns>
-        public Task<Product> CreateAsync(Product product, CancellationToken cancellationToken = default)
+        public async Task<Product> CreateAsync(Product product, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            await _context.Products.AddAsync(product, cancellationToken);
+            await _context.SaveChangesAsync(cancellationToken);
+            return product;
         }
 
         /// <summary>
@@ -37,7 +40,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The product if found, null otherwise</returns>
-        public Task<IList<Product>?> GetAsync(CancellationToken cancellationToken = default)
+        public async Task<IList<Product>?> GetAsync(CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -48,7 +51,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <param name="id">The unique identifier of the product</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The product if found, null otherwise</returns>
-        public Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Product?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -59,7 +62,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <param name="product">The product to update</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The updated product</returns>
-        public Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken = default)
+        public async Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
@@ -70,7 +73,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <param name="id">The unique identifier of the product to delete</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>True if the product was deleted, false if not found</returns>
-        public Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
             throw new NotImplementedException();
         }
