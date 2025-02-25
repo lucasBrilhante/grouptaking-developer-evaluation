@@ -5,9 +5,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "develop" ]
 
 jobs:
   build:
@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore ./template/backend/
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build ./template/backend/ --no-restore 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test ./template/backend/ --no-build --verbosity normal 
