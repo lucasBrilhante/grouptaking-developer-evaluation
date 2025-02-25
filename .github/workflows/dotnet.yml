@@ -21,8 +21,8 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore ./template/backend/
+      run: dotnet restore ./template/backend/Ambev.DeveloperEvaluation.sln
     - name: Build
-      run: dotnet build ./template/backend/ --no-restore 
+      run: dotnet build ./template/backend/Ambev.DeveloperEvaluation.sln --no-restore 
     - name: Test
-      run: dotnet test ./template/backend/ --no-build --verbosity normal 
+      run: dotnet test ./template/backend/Ambev.DeveloperEvaluation.sln --no-build --verbosity normal 
