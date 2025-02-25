@@ -41,9 +41,9 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The product if found, null otherwise</returns>
-        public async Task<IList<Product>?> GetAsync(CancellationToken cancellationToken = default)
+        public async Task<List<Product>?> GetAsync(CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await _context.Products.ToListAsync();
         }
 
         /// <summary>

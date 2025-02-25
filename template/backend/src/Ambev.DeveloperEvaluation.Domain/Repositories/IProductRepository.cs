@@ -25,7 +25,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The product if found, null otherwise</returns>
-        Task<IList<Product>?> GetAsync(CancellationToken cancellationToken = default);
+        Task<List<Product>?> GetAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Retrieves a product by their unique identifier
