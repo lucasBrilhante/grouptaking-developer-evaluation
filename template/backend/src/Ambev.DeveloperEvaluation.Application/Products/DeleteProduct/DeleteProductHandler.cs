@@ -6,7 +6,7 @@ using FluentValidation;
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 
 /// <summary>
-/// Handler for processing CreateProductCommand requests
+/// Handler for processing DeleteProductCommand requests
 /// </summary>
 public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, bool>
 {
@@ -14,22 +14,22 @@ public class DeleteProductHandler : IRequestHandler<DeleteProductCommand, bool>
     private readonly IMapper _mapper;
 
     /// <summary>
-    /// Initializes a new instance of CreateProductHandler
+    /// Initializes a new instance of DeleteProductHandler
     /// </summary>
     /// <param name="productRepository">The Product repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for CreateProductCommand</param>
+    /// <param name="validator">The validator for DeleteProductCommand</param>
     public DeleteProductHandler(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
     }
     /// <summary>
-    /// Handles the CreateProductCommand request
+    /// Handles the DeleteProductCommand request
     /// </summary>
-    /// <param name="command">The CreateProduct command</param>
+    /// <param name="command">The DeleteProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created product details</returns>
+    /// <returns>The deleted product details</returns>
     public async Task<bool> Handle(DeleteProductCommand command, CancellationToken cancellationToken)
     {
         var validator = new DeleteProductCommandValidator();

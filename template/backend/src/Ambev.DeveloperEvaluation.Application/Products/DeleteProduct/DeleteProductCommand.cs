@@ -3,11 +3,10 @@
 namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 
 /// <summary>
-/// Command for creating a new product.
+/// Command for deleting a new product.
 /// </summary>
 /// <remarks>
-/// This command is used to capture the required data for creating a product, 
-/// including product title, description, price, image url, category, and rating count and value. 
+/// This command is used to capture the required data for deleting a product, 
 /// It implements <see cref="IRequest{TResponse}"/> to initiate the request 
 /// that returns a <see cref="DeleteProductResult"/>.
 /// 
@@ -19,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 public class DeleteProductCommand : IRequest<bool>
 {
     /// <summary>
-    /// Gets or sets the Title of the product to be created. Must not be null or empty and have length between 3 and 100. 
+    /// Gets or sets the Id of the product to be deleted.
     /// </summary>
     public Guid Id { get; set; }
 }

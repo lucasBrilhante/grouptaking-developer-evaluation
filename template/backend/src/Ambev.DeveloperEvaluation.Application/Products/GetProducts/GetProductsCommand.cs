@@ -1,13 +1,13 @@
-﻿using MediatR;
+﻿using Ambev.DeveloperEvaluation.Domain.Enums;
+using MediatR;
 
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProducts;
 
 /// <summary>
-/// Command for creating a new product.
+/// Command for retrieving a list of products.
 /// </summary>
 /// <remarks>
-/// This command is used to capture the required data for creating a product, 
-/// including product title, description, price, image url, category, and rating count and value. 
+/// This command is used to capture the required data for retrieving a list of products, 
 /// It implements <see cref="IRequest{TResponse}"/> to initiate the request 
 /// that returns a <see cref="GetProductResult"/>.
 /// 
@@ -19,7 +19,22 @@ namespace Ambev.DeveloperEvaluation.Application.Products.GetProducts;
 public class GetProductsCommand : IRequest<GetProductsResult>
 {
     /// <summary>
-    /// Gets or sets the Title of the product to be created. Must not be null or empty and have length between 3 and 100. 
+    /// Gets or sets the Order in which the data will be retrieved
     /// </summary>
-    public Guid Id { get; set; }
+    public string Order { get; set; }
+
+    /// <summary>
+    /// Gets or sets the number of the Page of the data retrieved
+    /// </summary>
+    public int Page { get; set; } = 1;
+
+    /// <summary>
+    /// Gets or sets the size of the Page of the data retrieved
+    /// </summary>
+    public int Size { get; set; } = 10;
+
+    /// <summary>
+    /// Gets or sets the category filter
+    /// </summary>
+    public ProductCategory Category { get; set; }
 }

@@ -5,18 +5,16 @@ namespace Ambev.DeveloperEvaluation.Application.Products.GetProducts;
 
 
 /// <summary>
-/// Represents the response returned after successfully creating a new product.
+/// Represents the response returned after successfully retrieving a list of products.
 /// </summary>
 /// <remarks>
-/// This response contains the unique identifier of the newly created product,
-/// which can be used for subsequent operations or reference.
+/// This response the list of retrieved product,
 /// </remarks>
 public class GetProductsResult
 {
     /// <summary>
-    /// Gets or sets the unique identifier of the newly created product.
+    /// Gets or sets the list of products retrieved
     /// </summary>
-    /// <value>A GUID that uniquely identifies the created product in the system.</value>
     public List<GetProductResult> products { get; set; }
 }
 

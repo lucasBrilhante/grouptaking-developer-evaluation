@@ -4,12 +4,12 @@ using FluentValidation;
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
-/// Validator for CreateProductCommand that defines validation rules for product creation command.
+/// Validator for GetProductCommand that defines validation rules for product retrievion command.
 /// </summary>
 public class GetProductCommandValidator : AbstractValidator<GetProductCommand>
 {
     /// <summary>
-    /// Initializes a new instance of the CreateProductCommandValidator with defined validation rules.
+    /// Initializes a new instance of the GetProductCommandValidator with defined validation rules.
     /// </summary>
     /// <remarks>
     /// Validation rules include:

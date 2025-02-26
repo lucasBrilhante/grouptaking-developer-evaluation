@@ -8,41 +8,41 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
 public class GetProductResponse
 {
     /// <summary>
-    /// The unique identifier of the created product
+    /// The unique identifier of the retrieved product
     /// </summary>
     public Guid Id { get; set; }
     /// <summary>
-    /// Gets or sets the Title of the product to be created. Must not be null or empty and have length between 3 and 100. 
+    /// Gets or sets the Title of the product to be retrieved. Must not be null or empty and have length between 3 and 100. 
     /// </summary>
     public string Title { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the Price of the product to be created. Must be higher than 0.
+    /// Gets or sets the Price of the product to be retrieved. Must be higher than 0.
     /// </summary>
     public double Price { get; set; } = 0;
 
     /// <summary>
-    /// Gets or sets the Description of the product to be created. Must not be null or empty and have length between 3 and 200. 
+    /// Gets or sets the Description of the product to be retrieved. Must not be null or empty and have length between 3 and 200. 
     /// </summary>
     public string Description { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the Category of the product to be created. Must be one of the existing categories.
+    /// Gets or sets the Category of the product to be retrieved. Must be one of the existing categories.
     /// </summary>
     public ProductCategory Category { get; set; } = 0;
 
     /// <summary>
-    /// Gets or sets the Image of the product to be created. Must not be null or empty and have length between 3 and 1000. 
+    /// Gets or sets the Image of the product to be retrieved. Must not be null or empty and have length between 3 and 1000. 
     /// </summary>
     public string Image { get; set; } = string.Empty;
 
     /// <summary>
-    /// Gets or sets the RatingCount of the product to be created. Must be higher or equal to 0.
+    /// Gets or sets the RatingCount of the product to be retrieved. Must be higher or equal to 0.
     /// </summary>
     public int RatingCount { get; set; } = 0;
 
     /// <summary>
-    /// Gets or sets the RatingStars of the product to be created. Must be 0 or higher and smaller or equal to 5.
+    /// Gets or sets the RatingStars of the product to be retrieved. Must be 0 or higher and smaller or equal to 5.
     /// </summary>
     public float RatingStars { get; set; } = 0;
 }

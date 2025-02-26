@@ -13,6 +13,11 @@ using Ambev.DeveloperEvaluation.WebApi.Features.Products.UpdateProduct;
 using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
 using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Options;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Runtime.ConstrainedExecution;
+using Ambev.DeveloperEvaluation.Domain.Enums;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products;
 
@@ -97,18 +102,25 @@ public class ProductsController : Controller
     }
 
     /// <summary>
-    /// Retrieves a product by their ID
+    /// Retrieves all products
     /// </summary>
-    /// <param name="id">The unique identifier of the product</param>
     /// <param name="cancellationToken">Cancellation token</param>
     /// <returns>The product details if found</returns>
     [HttpGet]
     [ProducesResponseType(typeof(ApiResponseWithData<List<GetProductResponse>>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> GetProducts(CancellationToken cancellationToken)
+    public async Task<IActionResult> GetProducts(CancellationToken cancellationToken,
+        [FromQuery] string _order,
+        [FromQuery] int _page = 1,
+        [FromQuery] int _size = 10)
     {
-        var request = new GetProductsRequest();
+        var request = new GetProductsRequest
+        {
+            Order = _order,
+            Page = _page,
+            Size = _size,
+        };
         var validator = new GetProductsRequestValidator();
         var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -126,13 +138,54 @@ public class ProductsController : Controller
         });
     }
 
+    /// <summary>
+    /// Retrieves all products by category
+    /// </summary>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The product details if found</returns>
+    [HttpGet("/categories/{category}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<List<GetProductResponse>>), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetProductsByCategory(
+        [FromRoute] ProductCategory category, 
+        CancellationToken cancellationToken,
+        [FromQuery] string _order,
+        [FromQuery] int _page = 1,
+        [FromQuery] int _size = 10)
+    { 
+        var request = new GetProductsRequest 
+        { 
+            Order = _order,
+            Page = _page,
+            Size = _size,
+            Category = category
+
+        };
+        var validator = new GetProductsRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<GetProductsCommand>(request);
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Ok(new ApiResponseWithData<List<GetProductResponse>>
+        {
+            Success = true,
+            Message = "Product retrieved successfully",
+            Data = _mapper.Map<List<GetProductResult>, List<GetProductResponse>>(response.products)
+        });
+    }
 
     /// <summary>
-    /// Creates a new Product
+    /// Update a Product
     /// </summary>
+    /// <param name="id">The unique identifier of the product</param>
     /// <param name="request">The product creation request</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created product details</returns>
+    /// <returns>The updated product details</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status201Created)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -156,11 +209,11 @@ public class ProductsController : Controller
         });
     }
     /// <summary>
-    /// Retrieves a product by their ID
+    /// Deletes a product by their ID
     /// </summary>
     /// <param name="id">The unique identifier of the product</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The product details if found</returns>
+    /// <returns>A boolean that indicates sf it deleted or not</returns>
     [HttpDelete("{id}")]
     [ProducesResponseType(typeof(ApiResponseWithData<bool>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
@@ -180,7 +233,7 @@ public class ProductsController : Controller
         return Ok(new ApiResponseWithData<bool>
         {
             Success = true,
-            Message = "Product deleted successfully",
+            Message = "Product deleted successfully",   
             Data = response
         });
     }

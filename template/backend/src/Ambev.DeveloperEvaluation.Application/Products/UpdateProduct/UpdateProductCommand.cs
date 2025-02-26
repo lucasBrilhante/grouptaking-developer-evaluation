@@ -21,7 +21,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 public class UpdateProductCommand : IRequest<UpdateProductResult>
 {
     /// <summary>
-    /// Gets or sets the Title of the product to be created. Must not be null or empty and have length between 3 and 100. 
+    /// Gets or sets the Id of the product.
     /// </summary>
     public Guid Id { get; set; }
     /// <summary>

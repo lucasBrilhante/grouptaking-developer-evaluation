@@ -6,7 +6,7 @@ using FluentValidation;
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
-/// Handler for processing CreateProductCommand requests
+/// Handler for processing GetProductCommand requests
 /// </summary>
 public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductResult>
 {
@@ -14,22 +14,22 @@ public class GetProductHandler : IRequestHandler<GetProductCommand, GetProductRe
     private readonly IMapper _mapper;
 
     /// <summary>
-    /// Initializes a new instance of CreateProductHandler
+    /// Initializes a new instance of GetProductHandler
     /// </summary>
     /// <param name="productRepository">The Product repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
-    /// <param name="validator">The validator for CreateProductCommand</param>
+    /// <param name="validator">The validator for GetProductCommand</param>
     public GetProductHandler(IProductRepository productRepository, IMapper mapper)
     {
         _productRepository = productRepository;
         _mapper = mapper;
     }
     /// <summary>
-    /// Handles the CreateProductCommand request
+    /// Handles the GetProductCommand request
     /// </summary>
-    /// <param name="command">The CreateProduct command</param>
+    /// <param name="command">The GetProduct command</param>
     /// <param name="cancellationToken">Cancellation token</param>
-    /// <returns>The created product details</returns>
+    /// <returns>The retrieved product details</returns>
     public async Task<GetProductResult> Handle(GetProductCommand command, CancellationToken cancellationToken)
     {
         var validator = new GetProductCommandValidator();

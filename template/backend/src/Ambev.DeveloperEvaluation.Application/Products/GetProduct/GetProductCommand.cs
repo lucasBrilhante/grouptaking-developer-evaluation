@@ -3,11 +3,10 @@
 namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 
 /// <summary>
-/// Command for creating a new product.
+/// Command for retrieving a product.
 /// </summary>
 /// <remarks>
-/// This command is used to capture the required data for creating a product, 
-/// including product title, description, price, image url, category, and rating count and value. 
+/// This command is used to capture the required data for retrieving a product, 
 /// It implements <see cref="IRequest{TResponse}"/> to initiate the request 
 /// that returns a <see cref="GetProductResult"/>.
 /// 
@@ -19,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 public class GetProductCommand : IRequest<GetProductResult>
 {
     /// <summary>
-    /// Gets or sets the Title of the product to be created. Must not be null or empty and have length between 3 and 100. 
+    /// Gets or sets the Id of the product to be retrieved.
     /// </summary>
     public Guid Id { get; set; }
 }
