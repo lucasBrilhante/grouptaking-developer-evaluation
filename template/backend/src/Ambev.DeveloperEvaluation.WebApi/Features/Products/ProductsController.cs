@@ -9,6 +9,8 @@ using Ambev.DeveloperEvaluation.Application.Products.GetProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProducts;
 using Ambev.DeveloperEvaluation.Application.Products.GetProducts;
 using Ambev.DeveloperEvaluation.Domain.Entities;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.UpdateProduct;
+using Ambev.DeveloperEvaluation.Application.Products.UpdateProduct;
 
 namespace Ambev.DeveloperEvaluation.WebApi.Features.Products;
 
@@ -119,6 +121,36 @@ public class ProductsController : Controller
             Success = true,
             Message = "Product retrieved successfully",
             Data = _mapper.Map<List<GetProductResult>, List<GetProductResponse>>(response.products)
+        });
+    }
+
+
+    /// <summary>
+    /// Creates a new Product
+    /// </summary>
+    /// <param name="request">The product creation request</param>
+    /// <param name="cancellationToken">Cancellation token</param>
+    /// <returns>The created product details</returns>
+    [HttpPut("{id}")]
+    [ProducesResponseType(typeof(ApiResponseWithData<UpdateProductResponse>), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateProduct([FromRoute] Guid id, [FromBody] UpdateProductRequest request, CancellationToken cancellationToken)
+    {
+        var validator = new UpdateProductRequestValidator();
+        var validationResult = await validator.ValidateAsync(request, cancellationToken);
+
+        if (!validationResult.IsValid)
+            return BadRequest(validationResult.Errors);
+
+        var command = _mapper.Map<UpdateProductCommand>(request);
+        command.Id = id;
+        var response = await _mediator.Send(command, cancellationToken);
+
+        return Created(string.Empty, new ApiResponseWithData<UpdateProductResponse>
+        {
+            Success = true,
+            Message = "Product created successfully",
+            Data = _mapper.Map<UpdateProductResponse>(response)
         });
     }
 }

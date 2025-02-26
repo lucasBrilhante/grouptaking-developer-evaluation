@@ -13,7 +13,8 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
     public class ProductRepository : IProductRepository
     {
         private readonly DefaultContext _context;
-
+        private static readonly string _ID_NOT_FOUND = "Id not found";
+        private static readonly string _EXECUTION_FAILED = "Execution failed";
         /// <summary>
         /// Initializes a new instance of ProductRepository
         /// </summary>
@@ -65,7 +66,14 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The updated product</returns>
         public async Task<Product> UpdateAsync(Product product, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+
+            var entity = await GetByIdAsync(product.Id, cancellationToken);
+            //if (entity == null)
+                //return false;
+            entity.Title = product.Title;
+            _context.Products.Update(entity);
+            await _context.SaveChangesAsync(cancellationToken);
+            return product;
         }
 
         /// <summary>
@@ -76,7 +84,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>True if the product was deleted, false if not found</returns>
         public async Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            var product = await GetByIdAsync(id, cancellationToken);
+            if (product == null)
+                return false;
+
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
         }
     }
 }
