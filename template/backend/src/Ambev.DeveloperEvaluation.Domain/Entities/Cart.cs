@@ -20,7 +20,7 @@ public class Cart: BaseEntity
     /// Gets the product's selling price.
     /// Must not be zero or negative.
     /// </summary>
-    public DateTime Date { get; set; }
+    //public DateTime Date { get; set; }
     /// <summary>
     /// Gets the product's description, with more information.
     /// Must not be null or empty.

@@ -13,7 +13,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.HasKey(u => u.Id);
             builder.Property(u => u.Id).HasColumnType("uuid").HasDefaultValueSql("gen_random_uuid()");
 
-            builder.Property(u => u.Date);
+            //builder.Property(u => u.Date);
             builder.HasOne(u => u.User).WithMany(u => u.Carts).HasForeignKey(u => u.UserId);
             builder.HasMany(u => u.Products).WithMany(u => u.Carts);
 
