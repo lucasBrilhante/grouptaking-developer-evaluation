@@ -45,5 +45,8 @@ public class Product: BaseEntity
     /// </summary>
     public float RatingStars { get; set; }
 
+    public List<Cart> Carts { get; set; }
+
+
 }
 

@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
             builder.Property(u => u.Price);
             builder.Property(u => u.RatingCount);
             builder.Property(u => u.RatingStars);
-
+            builder.HasMany(u => u.Carts).WithMany(u => u.Products);
 
             builder.Property(u => u.Category)
                 .HasConversion<string>()
