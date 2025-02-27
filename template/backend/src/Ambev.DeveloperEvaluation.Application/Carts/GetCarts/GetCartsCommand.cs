@@ -18,6 +18,7 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.GetCarts;
 /// </remarks>
 public class GetCartsCommand : IRequest<GetCartsResult>
 {
+
     /// <summary>
     /// Gets or sets the Order in which the data will be retrieved
     /// </summary>

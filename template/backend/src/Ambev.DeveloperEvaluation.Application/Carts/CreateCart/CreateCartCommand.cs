@@ -7,18 +7,29 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 /// <summary>
 /// Command for creating a new cart.
 /// </summary>
-/// <remarks>
-/// This command is used to capture the required data for creating a cart, 
-/// including cart title, description, price, image url, category, and rating count and value. 
-/// It implements <see cref="IRequest{TResponse}"/> to initiate the request 
-/// that returns a <see cref="CreateCartResult"/>.
-/// 
-/// The data provided in this command is validated using the 
-/// <see cref="CreateCartCommandValidator"/> which extends 
-/// <see cref="AbstractValidator{T}"/> to ensure that the fields are correctly 
-/// populated and follow the required rules.
-/// </remarks>
 public class CreateCartCommand : IRequest<CreateCartResult>
 {
-}
+    /// <summary>
+    /// Gets or sets the userid of the cart
+    /// </summary>
+    public Guid UserId { get; set; }
 
+    /// <summary>
+    /// Gets or sets products inside the cart
+    /// </summary>
+    public List<ProductCart> Products { get; set; }
+}
+/// <summary>
+/// Represents the product inside the cart
+/// </summary>
+public class ProductCart () 
+{
+    /// <summary>
+    /// Gets or sets the product id of the product.
+    /// </summary>
+    public Guid ProductId { get; set; }
+    /// <summary>
+    /// Gets or sets the quantity of the product.
+    /// </summary>
+    public int Quantity { get; set; }
+}

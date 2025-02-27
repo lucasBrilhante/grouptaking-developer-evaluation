@@ -13,8 +13,8 @@ public class Cart: BaseEntity
     /// Gets the product's title.
     /// Must not be null or empty.
     /// </summary>
-    public User User { get; }
-    public Guid UserId { get; }
+    public User User { get; set; }
+    public Guid UserId { get; set; }
 
     /// <summary>
     /// Gets the product's selling price.
@@ -25,7 +25,7 @@ public class Cart: BaseEntity
     /// Gets the product's description, with more information.
     /// Must not be null or empty.
     /// </summary>
-    public Product[] Products { get; set; }
+    public List<Product> Products { get; set; }
    
 
 }

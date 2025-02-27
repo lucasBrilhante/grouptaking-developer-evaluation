@@ -12,6 +12,9 @@ namespace Ambev.DeveloperEvaluation.Application.Carts.CreateCart;
 public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartResult>
 {
     private readonly ICartRepository _cartRepository;
+    private readonly IProductRepository _productRepository;
+    private readonly IUserRepository _userRepository;
+
     private readonly IMapper _mapper;
 
     /// <summary>
@@ -20,9 +23,16 @@ public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartRe
     /// <param name="cartRepository">The Cart repository</param>
     /// <param name="mapper">The AutoMapper instance</param>
     /// <param name="validator">The validator for CreateCartCommand</param>
-    public CreateCartHandler(ICartRepository cartRepository, IMapper mapper)
+    public CreateCartHandler(
+        ICartRepository cartRepository, 
+        IProductRepository productRepository,
+        IUserRepository userRepository,
+        IMapper mapper)
     {
         _cartRepository = cartRepository;
+        _productRepository = productRepository;
+        _userRepository = userRepository;
+
         _mapper = mapper;
     }
     /// <summary>
@@ -40,6 +50,23 @@ public class CreateCartHandler : IRequestHandler<CreateCartCommand, CreateCartRe
             throw new ValidationException(validationResult.Errors);
 
         var cart = _mapper.Map<Cart>(command);
+        cart.Products = new List<Product>();
+        foreach (var productCart in command.Products)
+        {
+            var product = await _productRepository.GetByIdAsync(productCart.ProductId);
+            if(product == null)
+            {
+                throw new Exception("Id invalid");
+            }
+            cart.Products.Add(product);
+        }
+        var user = await _userRepository.GetByIdAsync(command.UserId);
+        if (user == null)
+        {
+            throw new Exception("User Id invalid");
+        }
+
+        cart.User = user;
 
         var createdCart = await _cartRepository.CreateAsync(cart, cancellationToken);
         var result = _mapper.Map<CreateCartResult>(createdCart);

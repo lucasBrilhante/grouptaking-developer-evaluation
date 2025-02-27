@@ -44,7 +44,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         /// <returns>The cart if found, null otherwise</returns>
         public async Task<List<Cart>?> GetAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Carts.ToListAsync();
+            return await _context.Carts.Include(x => x.Products).ToListAsync();
         }
 
         /// <summary>
