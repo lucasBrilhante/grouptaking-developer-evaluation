@@ -17,7 +17,7 @@ public class CreateCartProfile : Profile
     {
         CreateMap<CreateCartRequest, CreateCartCommand>();
         CreateMap<CreateCartResult, CreateCartResponse>();
-        CreateMap<ProductCartCommand, ProductCartCommand>();
+        CreateMap<ProductCartRequest, ProductCartCommand>();
 
     }
 }

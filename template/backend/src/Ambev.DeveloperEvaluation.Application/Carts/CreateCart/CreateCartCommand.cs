@@ -17,12 +17,12 @@ public class CreateCartCommand : IRequest<CreateCartResult>
     /// <summary>
     /// Gets or sets products inside the cart
     /// </summary>
-    public List<ProductCart> Products { get; set; }
+    public List<ProductCartCommand> Products { get; set; }
 }
 /// <summary>
 /// Represents the product inside the cart
 /// </summary>
-public class ProductCart () 
+public class ProductCartCommand () 
 {
     /// <summary>
     /// Gets or sets the product id of the product.
