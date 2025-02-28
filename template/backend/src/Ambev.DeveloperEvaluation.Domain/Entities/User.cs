@@ -79,6 +79,11 @@ public class User : BaseEntity, IUser
     string IUser.Role => Role.ToString();
 
     /// <summary>
+    /// Gets the user's carts.
+    /// </summary>
+    /// <returns>The user's role as a string.</returns>
+    public List<Cart> Carts { get; set; }
+    /// <summary>
     /// Initializes a new instance of the User class.
     /// </summary>
     public User()
